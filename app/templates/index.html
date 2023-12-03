@@ -1,0 +1,515 @@
+{% load static %}
+{% load humanize %}
+{% load l10n %}
+<!DOCTYPE html>
+<html lang="en-us" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>{{ configuration.website_name }}</title>
+    <meta name="keyword" content="{{ configuration.meta_keyword }}">
+    <meta name="description" content="{ configuration.meta_description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% if configuration.website_favicon %}
+    <link rel="shortcut icon" href="{{ configuration.website_favicon.url }}">
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'css/style-v2.css' %}"/>
+
+    <script src="{% static 'js/modernizr.custom.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/notification.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/themify-icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/icofont.css' %}">
+</head>
+<body>
+
+<div id="loading" class="dark-back">
+    <div class="loading-bar"></div>
+    <span class="loading-text opacity-0">So Excited ?</span>
+</div>
+
+<div class="info-bar bar-intro opacity-0">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-lg-6 info-bar-left">
+            <p>Grand Opening in <span id="countdown"></span></p>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-6 info-bar-right">
+            <a data-dialog="somedialog" class="action-btn trigger">Click Me !</a>
+        </div>
+    </div>
+</div>
+
+
+<div id="slider" class="sl-slider-wrapper">
+    <div class="sl-slider">
+
+        <div class="sl-slide bg-1" data-orientation="horizontal" data-slice1-rotation="-25" data-slice2-rotation="-25"
+             data-slice1-scale="2" data-slice2-scale="2">
+            <div class="sl-slide-inner">
+                <div class="content-slide">
+                    <div class="container">
+                        {% if configuration.website_logo %}
+                        <img src="{{ configuration.website_logo.url }}" alt="" class="brand-logo text-intro opacity-0"/>
+                        {% endif %}
+                        <h1 class="text-intro opacity-0">Coming Soon</h1>
+                        {% if configuration.website_slogan %}
+                        <p class="text-intro opacity-0">{{ configuration.website_slogan | safe }}</p>
+                        {% endif %}
+
+                        <p class="social-icon text-intro opacity-0">
+                            {% if configuration.twitter_url %}
+                            <a href="{{ configuration.twitter_url }}" target="_blank"><i class="fa fa-twitter"></i></a>
+                            {% endif %}
+                            {% if configuration.facebook_url %}
+                            <a href="{{ configuration.facebook_url }}" target="_blank"><i class="fa fa-facebook"></i></a>
+                            {% endif %}
+                            {% if configuration.youtube_url %}
+                            <a href="{{ configuration.youtube_url }}" target="_blank"><i class="fa fa-youtube"></i></a>
+                            {% endif %}
+                            {% if configuration.dribbble_url %}
+                            <a href="{{ configuration.dribbble_url }}" target="_blank"><i class="fa fa-dribbble"></i></a>
+                            {% endif %}
+                            {% if configuration.instagram_url %}
+                            <a href="{{ configuration.instagram_url }}" target="_blank"><i class="fa fa-instagram"></i></a>
+                            {% endif %}
+                            {% if configuration.linkedin_url %}
+                            <a href="{{ configuration.linkedin_url }}" target="_blank"><i class="fa fa-linkedin"></i></a>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="sl-slide bg-2" data-orientation="vertical" data-slice1-rotation="10" data-slice2-rotation="-15"
+             data-slice1-scale="1.5" data-slice2-scale="1.5">
+            <div class="sl-slide-inner">
+                <div class="content-slide">
+                    <div class="container">
+                        {% if configuration.about_title %}
+                        <h2>{{ configuration.about_title }}</h2>
+                        {% endif %}
+                        {% if configuration.about_text %}
+                        <div class="row about-part">
+                            {{ configuration.about_text | safe }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="sl-slide bg-3" data-orientation="horizontal" data-slice1-rotation="3" data-slice2-rotation="3"
+             data-slice1-scale="2" data-slice2-scale="1">
+            <div class="sl-slide-inner">
+                <div class="content-slide">
+                    <div class="container">
+                        {% if configuration.gallery_title %}
+                        <h2>{{ configuration.gallery_title }}</h2>
+                        {% endif %}
+                        {% if configuration.gallery_text %}
+                        {{ configuration.gallery_text | safe }}
+                        {% endif %}
+
+                        <div class="portfolio my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+                            {% if album %}
+                            {% for item in album %}
+                            <figure class="col-xs-12 col-sm-12 col-md-6 col-lg-4 annex-img split-section"
+                                    itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                <a href="{{ item.picture.url }}" class="gallery-link small" data-image="{{ item.picture.url }}"
+                                   itemprop="contentUrl" data-size="1920x1280">
+                                    <img src="{{ item.picture.url }}" itemprop="thumbnail" alt="{{ item.title }}"
+                                         class="img-responsive gallery-img small-square"/>
+                                </a>
+                                <figcaption itemprop="caption description">
+                                    <div class="photo-details">
+                                        <h4>Get in the Game now <small>Amazing story in {{ item.year | date:'Y' }}</small></h4>
+                                        <i class="icon ion-plus-circled"></i>
+                                        {% if item.description %}
+                                        <p>{{ item.description }}</p>
+                                        {% endif %}
+                                    </div>
+                                </figcaption>
+                            </figure>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="sl-slide bg-5" data-orientation="horizontal" data-slice1-rotation="-5" data-slice2-rotation="10"
+             data-slice1-scale="2" data-slice2-scale="1">
+            <div class="sl-slide-inner">
+                <div class="content-slide">
+                    <div class="container">
+                        {% if configuration.contact_title %}
+                        <h2>{{ configuration.contact_title }}</h2>
+                        {% endif %}
+                        {% if configuration.contact_text %}
+                        {{ configuration.contact_text | safe }}
+                        {% endif %}
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 info-contact">
+                                <h3>WAVE Service Department</h3>
+                                <p>If you have any further suggestions, questions or comments, here are the best ways to
+                                    connect with us!</p>
+                                <br>
+                                <p class="list-info">
+                                    {% if configuration.website_phone %}
+                                    <i class="icon ion-ios-telephone"></i> Phone : {{ configuration.website_phone }}
+                                    <br>
+                                    {% endif %}
+                                    {% if configuration.website_email %}
+                                    <i class="icon ion-ios-email"></i>
+                                        Email :
+                                        <a href="mailto:{{ configuration.website_email }}" class="phone-mail-link">
+                                            <span class="__cf_email__">{{ configuration.website_email }}</span>
+                                        </a>
+                                    <br>
+                                    {% endif %}
+                                    {% if configuration.location %}
+                                    <i class="icon ion-ios-location"></i> Location : {{ configuration.location }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-offset-1">
+
+                                <form id="contact-form" name="contact-form" data-name="Contact Form">
+                                    <div class="row">
+                                        {% csrf_token %}
+                                        <div class="col-xs-12 col-sm-12 col-lg-6">
+                                            <div class="form-group">
+                                                <input type="text" id="name" class="form form-control"
+                                                       placeholder="Your Name*" onfocus="this.placeholder = ''"
+                                                       onblur="this.placeholder = 'Your Name*'" name="name"
+                                                       data-name="Name" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-lg-6">
+                                            <div class="form-group">
+                                                <input type="email" id="email" class="form form-control"
+                                                       placeholder="Your Email*" onfocus="this.placeholder = ''"
+                                                       onblur="this.placeholder = 'Your Email*'" name="email"
+                                                       data-name="Email Address" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-lg-12">
+                                            <div class="form-group">
+                                                <input type="text" id="subject" class="form form-control"
+                                                       placeholder="Regarding..." onfocus="this.placeholder = ''"
+                                                       onblur="this.placeholder = 'Regarding...'" name="subject"
+                                                       data-name="Subject">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-lg-12 no-padding">
+                                            <div class="form-group">
+                                                <textarea id="text-area" class="form textarea form-control"
+                                                          placeholder="Your message here... 20 characters Min.*"
+                                                          onfocus="this.placeholder = ''"
+                                                          onblur="this.placeholder = 'Your message here... 20 characters Min.*'"
+                                                          name="message" data-name="Text Area" required></textarea>
+                                            </div>
+                                            <span class="sub-text">* Required fields</span>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" id="valid-form" class="btn btn-color">Send my Message</button>
+                                </form>
+
+                                <div id="block-answer">
+                                    <div id="answerSuccess"></div>
+
+                                    <div id="answerError"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <nav id="nav-arrows" class="nav-arrows">
+        <span class="nav-arrow-prev">Previous</span>
+        <span class="nav-arrow-next">Next</span>
+    </nav>
+
+
+    <nav id="nav-multi-square" class="nav-multi-square nav-intro opacity-0">
+		<span class="nav-square-current nav-square">
+			<span><i class="fa fa-home"></i>Home</span>
+		</span>
+        <span class="nav-square">
+			<span><i class="fa fa-user-secret"></i>About</span>
+		</span>
+        <span class="nav-square">
+			<span><i class="fa fa-briefcase"></i>Portfolio</span>
+		</span>
+        <span class="nav-square">
+			<span><i class="fa fa-commenting-o"></i>Contact</span>
+		</span>
+    </nav>
+
+</div>
+
+
+<div id="somedialog" class="dialog">
+    <div class="dialog__overlay"></div>
+
+    <div class="dialog__content">
+        <div class="header-picture"></div>
+
+
+        <div class="dialog-inner">
+            <h4>Notify Popup Highlight</h4>
+            <p>Just write the pefect description for your launch product here....
+                <strong>Codedthemes Product launch in next XX weeks. Enjoy !!!</strong>
+            </p>
+
+            <div id="subscribe">
+                <form id="notifyMe">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="controls">
+
+                            <input type="text" id="mail-sub" name="email" placeholder="Click here to write your email"
+                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'"
+                                   class="form-control email srequiredField"/>
+
+                            <i class="fa fa-spinner opacity-0"></i>
+
+                            <button id="notifyMeBtn" class="btn btn-lg submit">Submit</button>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="block-message">
+                    <div class="message">
+                        <p class="notify-valid"></p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <button class="close-newsletter" data-dialog-close><i class="icon ion-android-close"></i></button>
+    </div>
+
+</div>
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <div class="pswp__bg"></div>
+
+    <div class="pswp__scroll-wrap">
+
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script data-cfasync="false" src="{% static 'js/email-decode.min.js' %}"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/jquery.easings.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+<script src="{% static 'js/jquery.ba-cond.min.js' %}"></script>
+<script src="{% static 'js/jquery.slitslider.js' %}"></script>
+
+<script src="{% static 'js/notifyMe.js' %}"></script>
+
+<script src="{% static 'js/waves.min.js' %}"></script>
+<!--<script type="text/javascript" src="{% static 'js/notification.js' %}"></script>-->
+
+<script src="{% static 'js/contact-me.js' %}"></script>
+
+<script src="{% static 'js/classie.js' %}"></script>
+<script src="{% static 'js/dialogFx.js' %}"></script>
+
+<script src="{% static 'js/photoswipe.js' %}"></script>
+
+<script src="{% static 'js/photoswipe-ui-default.js' %}"></script>
+
+<script src="{% static 'js/jquery.mCustomScrollbar.js' %}"></script>
+
+<script src="{% static 'js/jquery.countdown.js' %}"></script>
+<script>
+    $("#countdown")
+        .countdown("{{ configuration.website_opening_date|date:'Y/m/d h:i:s' }}", function(event) {
+            $(this).html(
+                event.strftime('%D Days %Hh %Mm %Ss')
+            );
+        });
+
+    $('#notifyMeBtn').on('click', function(event) {
+        event.preventDefault()
+        function getCookie(name) {
+            const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+            return cookieValue ? cookieValue.pop() : '';
+        }
+        var o = $(".note");
+        var h = $('#mail-sub').val();
+        var p = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (p.test(h)) {
+            $(".message").removeClass("error bad-email success-full");
+            $(".message").hide().html('').fadeIn();
+            $(".fa-spinner").addClass("fa-spin").removeClass("opacity-0");
+            o.show();
+
+            const form = document.getElementById('notifyMe');
+
+            $.ajax({
+                url: "{% url 'add-guest' %}",
+                method: 'POST',
+                headers: {'X-CSRFToken': getCookie('csrftoken')},
+                data: {
+                    'email': h,
+                },
+                dataType: "json",
+                success: function(data) {
+                    o.hide();
+                    if (data.message) {
+                        $(".fa-spinner").addClass("opacity-0").removeClass("fa-spin");
+                        $(".message").removeClass("bad-email").addClass("success-full");
+                        $(".block-message").addClass("show-block-valid").removeClass("show-block-error");
+                        $(".message").html('<p class="notify-valid">'+ data.message +'</p>').fadeIn();
+                        form.reset();
+                    } else {
+                        if (e.type == "ValidationError") {
+                            $(".fa-spinner").addClass("opacity-0").removeClass("fa-spin");
+                            $(".message").html('<p class="notify-valid">This email address looks fake or invalid.<br>Please enter a real email address.</p>').fadeIn();
+                        } else {
+                            $(".fa-spinner").addClass("opacity-0").removeClass("fa-spin");
+                            $(".message").html('<p class="notify-valid">Oops. Looks like something went wrong.<br>Please try again later.</p>').fadeIn();
+                        }
+                    }
+                },
+                error: function(errors) {
+                    o.hide();
+                    $(".fa-spinner").addClass("opacity-0").removeClass("fa-spin");
+                    $(".block-message").addClass("show-block-error").removeClass("show-block-valid");
+                    if (errors.status == 404) {
+                        $(".message").html('<p class="notify-valid">Service is not available at the moment.<br>Please check your internet connection or try again later.</p>').fadeIn();
+                    } else {
+                        $(".message").html('<p class="notify-valid">Oops. '+ errors.responseJSON.details +'</p>').fadeIn();
+                    }
+                }
+            })
+        } else {
+            $(".fa-spinner").addClass("opacity-0").removeClass("fa-spin");
+            $(".message").addClass("bad-email").removeClass("success-full");
+            $(".block-message").addClass("show-block-error").removeClass("show-block-valid");
+            $(".message").html('<p class="notify-valid">Your e-mail address is incorrect.<br>Please check it and try again.</p>').fadeIn();
+            o.hide();
+        }
+        // Reset and hide all messages on .keyup()
+        $("#notifyMe input").keyup(function() {
+            $(".block-message").addClass("").removeClass("show-block-valid show-block-error");
+            $(".message").fadeOut();
+        });
+    })
+
+    $('#valid-form').on('click', function(event) {
+        event.preventDefault();
+        function getCookie(name) {
+            const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+            return cookieValue ? cookieValue.pop() : '';
+        }
+
+        const form = document.getElementById('contact-form');
+        const formData = new FormData(form);
+        $.ajax({
+            url: "{% url 'send-email' %}",
+            method: 'POST',
+            headers: {'X-CSRFToken': getCookie('csrftoken')},
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function() {},
+            complete: function() {
+                $("#contact-form input, #contact-form textarea").keyup(function() {
+                    $("#answer").fadeOut();
+                });
+            },
+            success: function(data) {
+                console.log(data)
+
+                var output = '<div class="alert alert-success background-success">' +
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                    '<i class="icofont icofont-close-line-circled text-white"></i>' +
+                    '</button>' +
+                    '<strong>' + data.message + '</strong>' +
+                    '</div>';
+                $('#contact-form input').val('');
+                $('#contact-form textarea').val('');
+
+                $("#answerSuccess").hide().html(output).fadeIn();
+            },
+            error: function(errors) {
+                console.log(errors)
+                var output = '<div class="alert alert-danger background-danger">' +
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                    '<i class="icofont icofont-close-line-circled text-white"></i>' +
+                    '</button>' +
+                    '<strong>' + errors.responseJSON.details + '</strong>' +
+                    '</div>';
+                $("#answerError").hide().html(output).fadeIn();
+            }
+        })
+    })
+</script>
+
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>
